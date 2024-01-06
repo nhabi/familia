@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Zoila y Máximo</title>
+  <link rel="shortcut icon" href="images\family.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:image" content="images\family.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/magnific-popup.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/lightgallery.min.css">    
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/swiper.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .mensaje-container {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Agregamos un estilo para controlar el ancho de las columnas */
+    .column {
+      float: left;
+      width: 100%; /* Ancho predeterminado para pantallas pequeñas */
+      padding: 0 10px;
+    }
+
+    /* Media queries para ajustar el número de columnas en función del ancho de la pantalla */
+    @media (min-width: 576px) {
+      .column {
+        width: 100%; /* Una columna en pantallas pequeñas */
+      }
+    }
+
+    @media (min-width: 768px) {
+      .column {
+        width: 50%; /* Dos columnas en pantallas medianas */
+      }
+    }
+
+    @media (min-width: 992px) {
+      .column {
+        width: 33.33%; /* Tres columnas en pantallas grandes */
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .column {
+        width: 25%; /* Cuatro columnas en pantallas extra grandes */
+      }
+    }
+
+    /* Limpiamos el float después de cada fila de columnas */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <div class="site-wrap">
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+    <header class="site-navbar py-3" role="banner">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <a href="index.html"><img src="images\family.png" alt="Zoila y Maximo" style="height:80px;object-fit:cover;object-position:50% 50%"></a>
+        </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-fluid" data-aos="fade" data-aos-delay="500">
+      <center>
+        <p>&nbsp;</p>
+        <h1>BITACORA FAMILIAR</h1><p>&nbsp;</p><h21>Este espacio es para subir comentarios, mensajes, fotos o videos que quieran ser vistos por todos. Si es una foto o video, poner una descripción.</h2>
+        <p>&nbsp;</p>
+
+        <!-- Formulario de mensajes y archivos multimedia -->
+        <form id="mensajeForm" enctype="multipart/form-data">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" required>
+          <br>
+          <label for="mensaje">Mensaje:</label>
+          <textarea rows="4" cols="50" id="mensaje" required></textarea>
+          <br>
+          <label for="archivo">Adjuntar archivo (imagen o video):</label>
+          <input type="file" id="archivo" accept="image/*,video/*" required>
+          <br>
+          <button type="button" onclick="enviarMensaje()">Enviar Mensaje</button>
+        </form>
+      </center>
+    </div>
+
+    <!-- Galería de mensajes -->
+    <div class="container" id="lightgallery">
+      <!-- Usamos la clase "row" para agrupar las columnas -->
+      <div class="row" id="galleryRow">
+        <!-- Los mensajes se mostrarán aquí -->
+      </div>
+    </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/swiper.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/picturefill.min.js"></script>
+  <script src="js/lightgallery-all.min.js"></script>
+  <script src="js/jquery.mousewheel.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#lightgallery').lightGallery();
+    });
+
+    function enviarMensaje() {
+      var nombre = document.getElementById("nombre").value;
+      var mensaje = document.getElementById("mensaje").value;
+      var archivoInput = document.getElementById("archivo");
+      var archivo = archivoInput.files[0];
+      
+      var nuevoMensajeHTML = '<div class="column"><div class="mensaje-container"><p><strong>' + nombre + ':</strong> ' + mensaje + '</p>';
+      
+      if (archivo) {
+        var tipoArchivo = archivo.type.split("/")[0];
+        
+        if (tipoArchivo === "image") {
+          // Mostrar imagen
+          nuevoMensajeHTML += '<img src="' + URL.createObjectURL(archivo) + '" style="object-fit: cover; width: 100%;" alt="Imagen">';
+        } else if (tipoArchivo === "video") {
+          // Mostrar video
+          nuevoMensajeHTML += '<video controls style="object-fit: cover; width: 100%;"><source src="' + URL.createObjectURL(archivo) + '" type="video/mp4"></video>';
+        }
+      }
+
+      // Agregar botón de eliminación
+      nuevoMensajeHTML += '<button onclick="eliminarMensaje(this)">Eliminar</button></div></div>';
+      
+      // Agregamos el nuevo mensaje a la galería
+      document.getElementById("galleryRow").innerHTML += nuevoMensajeHTML;
+
+      // Reseteamos el formulario
+      document.getElementById("mensajeForm").reset();
+    }
+
+    function eliminarMensaje(elemento) {
+      var confirmacion = confirm("¿Seguro que quieres eliminar este mensaje?");
+      if (confirmacion) {
+        // Eliminar el mensaje del DOM
+        elemento.parentNode.parentNode.remove();
+      }
+    }
+  
+  </script>
+
+  
+</body>
+</html>

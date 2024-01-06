@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Zoila y Máximo</title>
+  <link rel="shortcut icon" href="images\family.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:image" content="images\family.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/magnific-popup.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/lightgallery.min.css">    
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/swiper.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    // Función para mostrar la ventana de diálogo de contraseña
+    function showPasswordPrompt() {
+      var password;
+      do {
+        password = prompt("Introduce la contraseña:");
+        // Comprueba si la contraseña es correcta
+        if (password === "demenes") {
+          alert("Contraseña correcta. ¡Bienvenido!");
+          // Si la contraseña es correcta, muestra el contenido de la página
+          showContent();
+        } else if (password !== null) {
+          alert("Contraseña incorrecta. Vuelve a intentarlo.");
+          // Si la contraseña es incorrecta, muestra un mensaje y vuelve a solicitarla
+        }
+      } while (password !== null && password !== "demenes");
+    }
+
+    // Función para mostrar el contenido de la página
+    function showContent() {
+      // Cambié la forma en que se muestra el contenido, ahora se oculta el div de contraseña
+      document.getElementById("passwordPrompt").style.display = "none";
+      // Y se muestran los elementos con el contenido de la página
+      document.getElementById("content1").style.display = "block";
+      document.getElementById("content2").style.display = "block";
+      document.getElementById("content3").style.display = "block";
+    }
+
+    // Llama a la función cuando se carga la página
+    window.onload = showPasswordPrompt;
+  </script>
+</head>
+<body>
+
+  <div id="passwordPrompt" style="display: block;">
+    <!-- Mantén este div para la ventana de diálogo de contraseña -->
+  </div>
+
+  <div class="site-wrap">
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+    <header class="site-navbar py-3" role="banner">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+         
+          <a href="index.html"><img src="images\family.png" alt="Zoila y Maximo" style="height:80px;object-fit:cover;object-position:50% 50%"></a>
+        </a>
+          
+        </div>
+      </div>
+    </header>
+
+    <div class="container-fluid" data-aos="fade" data-aos-delay="500">
+      <div class="row">
+        <div class="col-lg-4" id="content1" style="display: none;">
+          <div class="image-wrap-2">
+            <div class="image-info">
+              <h2 class="mb-3"></h2>
+              <a href="calendariofamiliar.html" class="btn btn-outline-white py-2 px-4">Calendario Familiar</a>
+            </div>
+            <img src="images\604091_10151510751490485_1627215626_n.jpg" alt="Image" class="img-fluid" style="object-fit:cover; height: 50vh; width:100%;">
+          </div>
+        </div>
+        <div class="col-lg-4" id="content2" style="display: none;">
+          <div class="image-wrap-2">
+            <div class="image-info">
+              <h2 class="mb-3"></h2>
+              <a href="directoriofamiliar.html" class="btn btn-outline-white py-2 px-4">Directorio Familiar</a>
+            </div>
+            <img src="images\250629_10151510928355485_975671790_n.jpg" alt="Image" class="img-fluid" style="object-fit:cover; height: 50vh; width:100%;">
+          </div>
+        </div>
+        <div class="col-lg-4" id="content3" style="display: none;">
+          <div class="image-wrap-2">
+            <div class="image-info">
+              <h2 class="mb-3"></h2>
+              <a href="bitacorafamiliar.html" class="btn btn-outline-white py-2 px-4">Bitácora Familiar</a>
+            </div>
+            <img src="images\7374_10151611908350485_1631257229_n.jpg" alt="Image" class="img-fluid" style="object-fit:cover; height: 50vh; width:100%;">
+          </div>
+        </div>            
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/swiper.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/picturefill.min.js"></script>
+  <script src="js/lightgallery-all.min.js"></script>
+  <script src="js/jquery.mousewheel.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#lightgallery').lightGallery();
+    });
+  </script>
+</body>
+</html>
