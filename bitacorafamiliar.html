@@ -143,51 +143,106 @@
   <script src="js/lightgallery-all.min.js"></script>
   <script src="js/jquery.mousewheel.min.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    $(document).ready(function(){
-      $('#lightgallery').lightGallery();
-    });
+  <!-- ... (código previo) ... -->
 
-    function enviarMensaje() {
-      var nombre = document.getElementById("nombre").value;
-      var mensaje = document.getElementById("mensaje").value;
-      var archivoInput = document.getElementById("archivo");
-      var archivo = archivoInput.files[0];
-      
-      var nuevoMensajeHTML = '<div class="column"><div class="mensaje-container"><p><strong>' + nombre + ':</strong> ' + mensaje + '</p>';
-      
-      if (archivo) {
-        var tipoArchivo = archivo.type.split("/")[0];
-        
+<script>
+  $(document).ready(function () {
+    // Recuperar mensajes guardados al cargar la página
+    cargarMensajesGuardados();
+    $('#lightgallery').lightGallery();
+  });
+
+  function enviarMensaje() {
+    var nombre = document.getElementById("nombre").value;
+    var mensaje = document.getElementById("mensaje").value;
+    var archivoInput = document.getElementById("archivo");
+    var archivo = archivoInput.files[0];
+
+    var nuevoMensajeHTML = '<div class="column"><div class="mensaje-container"><p><strong>' + nombre + ':</strong> ' + mensaje + '</p>';
+
+    if (archivo) {
+      var tipoArchivo = archivo.type.split("/")[0];
+
+      if (tipoArchivo === "image") {
+        // Mostrar imagen
+        nuevoMensajeHTML += '<img src="' + URL.createObjectURL(archivo) + '" style="object-fit: cover; width: 100%;" alt="Imagen">';
+      } else if (tipoArchivo === "video") {
+        // Mostrar video
+        nuevoMensajeHTML += '<video controls style="object-fit: cover; width: 100%;"><source src="' + URL.createObjectURL(archivo) + '" type="video/mp4"></video>';
+      }
+    }
+
+    // Agregar botón de eliminación
+    nuevoMensajeHTML += '<button onclick="eliminarMensaje(this)">Eliminar</button></div></div>';
+
+    // Agregamos el nuevo mensaje a la galería
+    document.getElementById("galleryRow").innerHTML += nuevoMensajeHTML;
+
+    // Guardar el mensaje en el almacenamiento local
+    guardarMensaje(nombre, mensaje, archivo);
+
+    // Reseteamos el formulario
+    document.getElementById("mensajeForm").reset();
+  }
+
+  function eliminarMensaje(elemento) {
+    var confirmacion = confirm("¿Seguro que quieres eliminar este mensaje?");
+    if (confirmacion) {
+      // Eliminar el mensaje del DOM
+      elemento.parentNode.parentNode.remove();
+
+      // Actualizar mensajes guardados en el almacenamiento local
+      actualizarMensajesGuardados();
+    }
+  }
+
+  function guardarMensaje(nombre, mensaje, archivo) {
+    // Obtener mensajes existentes desde el almacenamiento local
+    var mensajesGuardados = JSON.parse(localStorage.getItem("mensajes")) || [];
+
+    // Agregar el nuevo mensaje a la lista
+    mensajesGuardados.push({ nombre: nombre, mensaje: mensaje, archivo: archivo });
+
+    // Guardar la lista actualizada en el almacenamiento local
+    localStorage.setItem("mensajes", JSON.stringify(mensajesGuardados));
+  }
+
+  function cargarMensajesGuardados() {
+    // Obtener mensajes guardados desde el almacenamiento local
+    var mensajesGuardados = JSON.parse(localStorage.getItem("mensajes")) || [];
+
+    // Mostrar los mensajes guardados en la galería
+    mensajesGuardados.forEach(function (mensaje) {
+      var nuevoMensajeHTML = '<div class="column"><div class="mensaje-container"><p><strong>' + mensaje.nombre + ':</strong> ' + mensaje.mensaje + '</p>';
+
+      if (mensaje.archivo) {
+        var tipoArchivo = mensaje.archivo.type.split("/")[0];
+
         if (tipoArchivo === "image") {
           // Mostrar imagen
-          nuevoMensajeHTML += '<img src="' + URL.createObjectURL(archivo) + '" style="object-fit: cover; width: 100%;" alt="Imagen">';
+          nuevoMensajeHTML += '<img src="' + URL.createObjectURL(mensaje.archivo) + '" style="object-fit: cover; width: 100%;" alt="Imagen">';
         } else if (tipoArchivo === "video") {
           // Mostrar video
-          nuevoMensajeHTML += '<video controls style="object-fit: cover; width: 100%;"><source src="' + URL.createObjectURL(archivo) + '" type="video/mp4"></video>';
+          nuevoMensajeHTML += '<video controls style="object-fit: cover; width: 100%;"><source src="' + URL.createObjectURL(mensaje.archivo) + '" type="video/mp4"></video>';
         }
       }
 
       // Agregar botón de eliminación
       nuevoMensajeHTML += '<button onclick="eliminarMensaje(this)">Eliminar</button></div></div>';
-      
-      // Agregamos el nuevo mensaje a la galería
+
       document.getElementById("galleryRow").innerHTML += nuevoMensajeHTML;
+    });
+  }
 
-      // Reseteamos el formulario
-      document.getElementById("mensajeForm").reset();
-    }
+  function actualizarMensajesGuardados() {
+    // Obtener mensajes guardados desde el almacenamiento local
+    var mensajesGuardados = JSON.parse(localStorage.getItem("mensajes")) || [];
 
-    function eliminarMensaje(elemento) {
-      var confirmacion = confirm("¿Seguro que quieres eliminar este mensaje?");
-      if (confirmacion) {
-        // Eliminar el mensaje del DOM
-        elemento.parentNode.parentNode.remove();
-      }
-    }
-  
-  </script>
-
+    // Actualizar la lista de mensajes en el almacenamiento local
+    localStorage.setItem("mensajes", JSON.stringify(mensajesGuardados));
+  }
+</script>
   
 </body>
 </html>
+
