@@ -1,0 +1,40 @@
+.mensaje-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.column {
+  float: left;
+  width: 100%;
+  padding: 0 10px;
+}
+
+@media (min-width: 768px) {
+  .column {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .column {
+    width: 33.33%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .column {
+    width: 25%;
+  }
+}
+
+.row::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.bitacora-form {
+  max-width: 640px;
+  margin: 0 auto;
+}
