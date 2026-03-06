@@ -1248,3 +1248,25 @@ img {
     filter: none;
     -webkit-filter: grayscale(0);
     -webkit-transform: scale(1.01); }
+
+/* Ajustes de secciones y botones solicitados */
+.section-marcas-confiaron {
+  background: #ffffff !important;
+}
+
+#servicios,
+.section-servicios-proyectos {
+  scroll-margin-top: 110px;
+  overflow: visible;
+  padding-top: 1rem;
+}
+
+.btn-ver-todos-proyectos {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+
+.cta-iniciar-proyecto-final {
+  margin-top: 2rem;
+  text-align: center;
+}
