@@ -291,4 +291,85 @@ jQuery(document).ready(function($) {
 	}
 	swiperSetting();
 
+	var normalizeText = function(text) {
+		return (text || '')
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '')
+			.toLowerCase()
+			.replace(/\s+/g, ' ')
+			.trim();
+	};
+
+	var buttonAndSectionAdjustments = function() {
+		var $clickable = $('a, button');
+
+		var findSectionByHeading = function(label) {
+			var $heading = $('h1, h2, h3, h4, h5, h6').filter(function() {
+				return normalizeText($(this).text()) === normalizeText(label);
+			}).first();
+
+			if (!$heading.length) {
+				return $();
+			}
+
+			return $heading.closest('section, .site-section, .container, .container-fluid, .row').first();
+		};
+
+		var $marcasSection = findSectionByHeading('marcas que han confiado en mi');
+		if ($marcasSection.length) {
+			$marcasSection.addClass('section-marcas-confiaron');
+		}
+
+		var $serviciosSection = findSectionByHeading('servicios para proyectos');
+		if ($serviciosSection.length) {
+			$serviciosSection.addClass('section-servicios-proyectos').attr('id', 'servicios');
+		}
+
+		var $comoTrabajoSection = $('#como-trabajo, [id="como trabajo"], .como-trabajo').first();
+		if (!$comoTrabajoSection.length) {
+			$comoTrabajoSection = findSectionByHeading('como trabajo');
+			if ($comoTrabajoSection.length) {
+				$comoTrabajoSection.attr('id', 'como-trabajo');
+			}
+		}
+
+		var $iniciarProyecto = $clickable.filter(function() {
+			return normalizeText($(this).text()) === 'iniciar proyecto';
+		});
+
+		if ($iniciarProyecto.length > 1) {
+			var $heroButton = $iniciarProyecto.filter(function() {
+				return $(this).closest('#hero, .hero, .site-blocks-cover, .hero-section, .main-hero, .intro').length > 0;
+			}).first();
+
+			if (!$heroButton.length) {
+				$heroButton = $iniciarProyecto.first();
+			}
+
+			$iniciarProyecto.not($heroButton).each(function() {
+				$(this).attr('class', $heroButton.attr('class') || '').addClass('btn-iniciar-proyecto-unificado');
+			});
+		}
+
+		$clickable.each(function() {
+			var $item = $(this);
+			var text = normalizeText($item.text());
+
+			if (text === 'ver todos los proyectos') {
+				$item.addClass('btn-ver-todos-proyectos');
+			}
+
+			if (text === 'descubre como trabajo' && $comoTrabajoSection.length) {
+				$item.attr('href', '#como-trabajo');
+			}
+		});
+
+		if ($comoTrabajoSection.length && !$comoTrabajoSection.find('.btn-iniciar-proyecto-final').length) {
+			$comoTrabajoSection.append(
+				'<div class="cta-iniciar-proyecto-final text-center"><a href="#" class="btn btn-iniciar-proyecto-final btn-iniciar-proyecto-unificado">Iniciar proyecto</a></div>'
+			);
+		}
+	};
+	buttonAndSectionAdjustments();
+
 });
